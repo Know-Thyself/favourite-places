@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
 import { Colors } from '../constants/colors'
 import PickImage from './PickImage'
+import AccessLocation from './AccessLocation'
 
 const PlaceForm = () => {
 	const [title, setTitle] = useState('')
@@ -16,6 +17,7 @@ const PlaceForm = () => {
 				/>
 			</View>
 			<PickImage />
+			<AccessLocation />
 		</ScrollView>
 	)
 }
@@ -33,7 +35,6 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 	},
 	input: {
-		marginVertical: 4,
 		paddingVertical: 8,
 		paddingHorizontal: 8,
 		fontSize: 16,

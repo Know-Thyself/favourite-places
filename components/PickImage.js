@@ -1,10 +1,19 @@
-import { Button, View, Image, Alert, Text, StyleSheet } from 'react-native'
+import {
+	View,
+	Image,
+	Alert,
+	Text,
+	StyleSheet,
+	Pressable,
+} from 'react-native'
 import {
 	launchCameraAsync,
 	useCameraPermissions,
 	PermissionStatus,
 } from 'expo-image-picker'
 import { useState } from 'react'
+import { Entypo } from '@expo/vector-icons'
+import { Colors } from '../constants/colors'
 
 const PickImage = () => {
 	const [image, setImage] = useState()
@@ -38,8 +47,10 @@ const PickImage = () => {
 
 	return (
 		<View>
-			<View></View>
-			<Button title='Take a Picture' onPress={takeImageHandler} />
+			<Pressable onPress={takeImageHandler} style={styles.button}>
+				<Text style={styles.text}>Take a Picture</Text>
+				<Entypo name='camera' size={24} color={Colors.headerTintColor} />
+			</Pressable>
 			{image && <Image source={{ uri: image }} style={styles.image} />}
 		</View>
 	)
@@ -48,6 +59,20 @@ const PickImage = () => {
 export default PickImage
 
 const styles = StyleSheet.create({
+	button: {
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+		gap: 16,
+		backgroundColor: Colors.headerBg,
+		borderRadius: 7,
+		padding: 8,
+		marginVertical: 16,
+	},
+	text: {
+		color: Colors.headerTintColor,
+		fontSize: 16,
+	},
 	image: {
 		height: 250,
 		width: '100%',
