@@ -8,9 +8,9 @@ import {
 import { useState } from 'react'
 import MapView, { Marker } from 'react-native-maps'
 
-const AccessLocation = () => {
+const AccessLocation = ({ location, setLocation }) => {
 	const [status, requestPermission] = useForegroundPermissions()
-	const [location, setLocation] = useState(null)
+	// const [location, setLocation] = useState(null)
 
 	const getLocation = async () => {
 		if (!status.granted) {
@@ -24,8 +24,13 @@ const AccessLocation = () => {
 			return
 		}
 		const currentLocation = await getCurrentPositionAsync()
-		setLocation(currentLocation)
+		setLocation(currentLocation.coords)
 	}
+
+	const selectLocation = event => {
+		setLocation(event.nativeEvent.coordinate)
+	}
+
 	return (
 		<View>
 			<View>
@@ -42,13 +47,14 @@ const AccessLocation = () => {
 						initialRegion={{
 							longitudeDelta: 0.01,
 							latitudeDelta: 0.01,
-							...location.coords,
+							...location,
 						}}
+						onPress={selectLocation}
 						style={styles.map}
 					>
 						<Marker
 							coordinate={{
-								...location.coords,
+								...location,
 							}}
 						/>
 					</MapView>
@@ -76,7 +82,7 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 	},
 	map: {
-		height: '100%',
+		height: 160,
 		width: '100%',
 	},
 })

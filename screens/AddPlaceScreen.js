@@ -1,7 +1,7 @@
 import PlaceForm from '../components/PlaceForm'
 
-const AddPlaceScreen = () => {
-	return <PlaceForm />
+const AddPlaceScreen = ({ navigation }) => {
+	return <PlaceForm navigation={navigation} />
 }
 
 export default AddPlaceScreen

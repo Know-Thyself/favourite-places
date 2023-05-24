@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import {
 	FlatList,
 	Text,
@@ -8,6 +9,12 @@ import {
 } from 'react-native'
 
 const PlacesList = ({ places }) => {
+	// const [places, setPlaces] = useState([])
+
+	// useEffect(() => {
+	// 	setPlaces([...places, place])
+	// }, [places, place])
+
 	const selectHandler = () => {}
 	return places ? (
 		<FlatList

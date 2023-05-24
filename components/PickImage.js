@@ -1,11 +1,4 @@
-import {
-	View,
-	Image,
-	Alert,
-	Text,
-	StyleSheet,
-	Pressable,
-} from 'react-native'
+import { View, Image, Alert, Text, StyleSheet, Pressable } from 'react-native'
 import {
 	launchCameraAsync,
 	useCameraPermissions,
@@ -15,8 +8,8 @@ import { useState } from 'react'
 import { Entypo } from '@expo/vector-icons'
 import { Colors } from '../constants/colors'
 
-const PickImage = () => {
-	const [image, setImage] = useState()
+const PickImage = ({image, setImage}) => {
+	// const [image, setImage] = useState()
 	const [cameraPermissionInformation, requestPermission] =
 		useCameraPermissions()
 	const verifyPermission = async () => {
@@ -74,7 +67,7 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 	},
 	image: {
-		height: 250,
+		height: 160,
 		width: '100%',
 	},
 })
