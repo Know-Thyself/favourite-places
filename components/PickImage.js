@@ -4,12 +4,10 @@ import {
 	useCameraPermissions,
 	PermissionStatus,
 } from 'expo-image-picker'
-import { useState } from 'react'
 import { Entypo } from '@expo/vector-icons'
 import { Colors } from '../constants/colors'
 
 const PickImage = ({image, setImage}) => {
-	// const [image, setImage] = useState()
 	const [cameraPermissionInformation, requestPermission] =
 		useCameraPermissions()
 	const verifyPermission = async () => {

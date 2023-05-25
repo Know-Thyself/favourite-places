@@ -10,22 +10,19 @@ import {
 import { Colors } from '../constants/colors'
 import PickImage from './PickImage'
 import AccessLocation from './AccessLocation'
+import { Place } from '../models/place'
 
-const PlaceForm = ({ navigation }) => {
+const PlaceForm = ({ onFormSubmit }) => {
 	const [title, setTitle] = useState('')
 	const [image, setImage] = useState('')
 	const [location, setLocation] = useState(null)
-	const [place, setPlace] = useState([])
+	const [address, setAddress] = useState({})
 
 	const formSubmitHandler = () => {
-		const placeToSave = {
-			title,
-			image,
-			location,
-		}
-		setPlace(placeToSave)
-		navigation.navigate('Favourites', { place: place })
+		const placeToSave = new Place(title, image, location, address)
+		onFormSubmit(placeToSave)
 	}
+
 	return (
 		<ScrollView style={styles.form}>
 			<View>
@@ -38,7 +35,11 @@ const PlaceForm = ({ navigation }) => {
 				/>
 			</View>
 			<PickImage image={image} setImage={setImage} />
-			<AccessLocation location={location} setLocation={setLocation} />
+			<AccessLocation
+				location={location}
+				setLocation={setLocation}
+				setAddress={setAddress}
+			/>
 			<Pressable onPress={formSubmitHandler} style={styles.button}>
 				<Text style={styles.text}>Save</Text>
 			</Pressable>

@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import {
 	FlatList,
 	Text,
@@ -7,26 +6,38 @@ import {
 	Image,
 	StyleSheet,
 } from 'react-native'
+import MapView, { Marker } from 'react-native-maps'
 
 const PlacesList = ({ places }) => {
-	// const [places, setPlaces] = useState([])
-
-	// useEffect(() => {
-	// 	setPlaces([...places, place])
-	// }, [places, place])
-
 	const selectHandler = () => {}
-	return places ? (
+	return places.length ? (
 		<FlatList
 			data={places}
 			keyExtractor={item => item.id}
 			renderItem={({ item }) => {
 				return (
 					<Pressable onPress={selectHandler}>
-						<Image source={{ uri: item.imageUri }} />
+						<MapView
+							initialRegion={{
+								longitudeDelta: 0.01,
+								latitudeDelta: 0.01,
+								...item.location,
+							}}
+							style={styles.map}
+						>
+							<Marker
+								coordinate={{
+									...item.location,
+								}}
+							/>
+						</MapView>
+						<Image source={{ uri: item.imageUri }} style={styles.image} />
 						<View>
 							<Text>{item.title}</Text>
-							<Text>{item.address}</Text>
+							<Text>Country: {item.address.country}</Text>
+							<Text>Subregion: {item.address.subregion}</Text>
+							<Text>Postcode: {item.address.postalCode}</Text>
+							<Text>City: {item.address.city}</Text>
 						</View>
 					</Pressable>
 				)
@@ -47,6 +58,15 @@ const styles = StyleSheet.create({
 	},
 	fallbackText: {
 		fontSize: 16,
+	},
+	image: {
+		height: 200,
+		width: '100%',
+		marginVertical: 16,
+	},
+	map: {
+		height: 280,
+		width: '100%',
 	},
 })
 

@@ -1,7 +1,10 @@
 import PlaceForm from '../components/PlaceForm'
 
 const AddPlaceScreen = ({ navigation }) => {
-	return <PlaceForm navigation={navigation} />
+	const onFormSubmit = place => {
+		navigation.navigate('Favourites', { place: place })
+	}
+	return <PlaceForm onFormSubmit={onFormSubmit} />
 }
 
 export default AddPlaceScreen

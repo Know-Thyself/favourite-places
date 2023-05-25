@@ -4,13 +4,12 @@ import { Colors } from '../constants/colors'
 import {
 	getCurrentPositionAsync,
 	useForegroundPermissions,
+	reverseGeocodeAsync,
 } from 'expo-location'
-import { useState } from 'react'
 import MapView, { Marker } from 'react-native-maps'
 
-const AccessLocation = ({ location, setLocation }) => {
+const AccessLocation = ({ location, setLocation, setAddress }) => {
 	const [status, requestPermission] = useForegroundPermissions()
-	// const [location, setLocation] = useState(null)
 
 	const getLocation = async () => {
 		if (!status.granted) {
@@ -25,6 +24,9 @@ const AccessLocation = ({ location, setLocation }) => {
 		}
 		const currentLocation = await getCurrentPositionAsync()
 		setLocation(currentLocation.coords)
+		const address = await reverseGeocodeAsync(currentLocation.coords)
+		console.log(address, '<<<<<< Address')
+		setAddress(address[0])
 	}
 
 	const selectLocation = event => {
