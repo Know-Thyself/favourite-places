@@ -25,7 +25,6 @@ const AccessLocation = ({ location, setLocation, setAddress }) => {
 		const currentLocation = await getCurrentPositionAsync()
 		setLocation(currentLocation.coords)
 		const address = await reverseGeocodeAsync(currentLocation.coords)
-		console.log(address, '<<<<<< Address')
 		setAddress(address[0])
 	}
 
