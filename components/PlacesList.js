@@ -6,11 +6,12 @@ import {
 	Image,
 	StyleSheet,
 } from 'react-native'
-import MapView, { Marker } from 'react-native-maps'
 import { Colors } from '../constants/colors'
+import { useNavigation } from '@react-navigation/native'
 
 const PlacesList = ({ places }) => {
-	const selectHandler = () => {}
+	const navigation = useNavigation()
+
 	return places.length ? (
 		<FlatList
 			style={styles.parentContainer}
@@ -18,34 +19,36 @@ const PlacesList = ({ places }) => {
 			keyExtractor={item => item.id}
 			renderItem={({ item }) => {
 				return (
-					<Pressable onPress={selectHandler} style={styles.itemWrapper}>
+					<Pressable
+						onPress={() => {
+							navigation.navigate('Details', { id: item.id })
+						}}
+						style={({ pressed }) => [
+							styles.itemWrapper,
+							pressed && styles.pressed,
+						]}
+					>
 						<View style={styles.imageAndTextWrapper}>
 							<Image source={{ uri: item.imageUri }} style={styles.image} />
 							<View style={styles.textWrapper}>
-								<Text style={styles.text}>Title: {item.title}</Text>
-								<Text style={styles.text}>Country: {item.country}</Text>
-								<Text style={styles.text}>Subregion: {item.subregion}</Text>
-								<Text style={styles.text}>Postcode: {item.postcode}</Text>
-								<Text style={styles.text}>City: {item.city}</Text>
+								<Text style={styles.text}>
+									Title: <Text style={styles.lightText}>{item.title}</Text>
+								</Text>
+								<Text style={styles.text}>
+									Country: <Text style={styles.lightText}>{item.country}</Text>
+								</Text>
+								<Text style={styles.text}>
+									Subregion:{' '}
+									<Text style={styles.lightText}>{item.subregion}</Text>
+								</Text>
+								<Text style={styles.text}>
+									Postcode:{' '}
+									<Text style={styles.lightText}>{item.postcode}</Text>
+								</Text>
+								<Text style={styles.text}>
+									City: <Text style={styles.lightText}>{item.city}</Text>
+								</Text>
 							</View>
-						</View>
-						<View style={styles.mapContainer}>
-							<MapView
-								initialRegion={{
-									longitudeDelta: 0.01,
-									latitudeDelta: 0.01,
-									latitude: item.lat,
-									longitude: item.lng,
-								}}
-								style={styles.map}
-							>
-								<Marker
-									coordinate={{
-										latitude: item.lat,
-										longitude: item.lng,
-									}}
-								/>
-							</MapView>
 						</View>
 					</Pressable>
 				)
@@ -79,40 +82,32 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 16,
 		paddingTop: 16,
 	},
+	pressed: {
+		backgroundColor: Colors.headerTintColor,
+		borderRadius: 8,
+	},
 	imageAndTextWrapper: {
 		flexDirection: 'row',
 		backgroundColor: Colors.headerTintColor,
-		borderTopLeftRadius: 16,
-		borderTopRightRadius: 16,
 		gap: 8,
+		borderRadius: 8,
 	},
 	image: {
-		borderTopLeftRadius: 16,
+		borderTopLeftRadius: 8,
+		borderBottomLeftRadius: 8,
 		height: 140,
 		flex: 1,
 	},
 	textWrapper: {
 		flex: 2,
 		justifyContent: 'center',
-		borderTopRightRadius: 16,
 	},
 	text: {
 		fontSize: 16,
 		fontWeight: '600',
 	},
-	mapContainer: {
-		zIndex: -1,
-		overflow: 'hidden',
-		alignItems: 'center',
-		justifyContent: 'center',
-		borderBottomLeftRadius: 16,
-		borderBottomRightRadius: 16,
-	},
-	map: {
-		height: 180,
-		width: '100%',
-		borderBottomLeftRadius: 16,
-		borderBottomRightRadius: 16,
+	lightText: {
+		color: Colors.grayish,
 	},
 })
 

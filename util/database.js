@@ -76,3 +76,22 @@ export function fetchPlaces() {
 	})
 	return promise
 }
+
+export function getPlaceById(id) {
+	const promise = new Promise((resolve, reject) => {
+		database.transaction(tx => {
+			tx.executeSql(
+				`SELECT * FROM favouritePlaces WHERE id=?`,
+				[id],
+				(_, result) => {
+					resolve(result.rows._array)
+				},
+				(_, err) => {
+					console.error(err)
+					reject(err)
+				}
+			)
+		})
+	})
+	return promise
+}

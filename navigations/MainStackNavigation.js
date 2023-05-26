@@ -3,6 +3,7 @@ import AddPlaceScreen from '../screens/AddPlaceScreen'
 import AllPlacesScreen from '../screens/AllPlacesScreen'
 import { Entypo } from '@expo/vector-icons'
 import { Colors } from '../constants/colors'
+import PlaceDetailsScreen from '../screens/PlaceDetailsScreen'
 
 const Stack = createNativeStackNavigator()
 
@@ -34,6 +35,11 @@ const MainStackNavigation = () => {
 				name='Add'
 				component={AddPlaceScreen}
 				options={{ title: 'Add a New Place' }}
+			/>
+			<Stack.Screen
+				name='Details'
+				component={PlaceDetailsScreen}
+				options={{ title: 'Details' }}
 			/>
 		</Stack.Navigator>
 	)
