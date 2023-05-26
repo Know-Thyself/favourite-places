@@ -1,8 +1,10 @@
 import PlaceForm from '../components/PlaceForm'
+import { insertPlace } from '../util/database'
 
 const AddPlaceScreen = ({ navigation }) => {
-	const onFormSubmit = place => {
-		navigation.navigate('Favourites', { place: place })
+	const onFormSubmit = async place => {
+		await insertPlace(place)
+		navigation.navigate('Favourites')
 	}
 	return <PlaceForm onFormSubmit={onFormSubmit} />
 }
