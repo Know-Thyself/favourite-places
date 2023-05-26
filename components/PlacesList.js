@@ -23,14 +23,10 @@ const PlacesList = ({ places }) => {
 							<Image source={{ uri: item.imageUri }} style={styles.image} />
 							<View style={styles.textWrapper}>
 								<Text style={styles.text}>Title: {item.title}</Text>
-								<Text style={styles.text}>Country: {item.address.country}</Text>
-								<Text style={styles.text}>
-									Subregion: {item.address.subregion}
-								</Text>
-								<Text style={styles.text}>
-									Postcode: {item.address.postalCode}
-								</Text>
-								<Text style={styles.text}>City: {item.address.city}</Text>
+								<Text style={styles.text}>Country: {item.country}</Text>
+								<Text style={styles.text}>Subregion: {item.subregion}</Text>
+								<Text style={styles.text}>Postcode: {item.postcode}</Text>
+								<Text style={styles.text}>City: {item.city}</Text>
 							</View>
 						</View>
 						<View style={styles.mapContainer}>
@@ -38,13 +34,15 @@ const PlacesList = ({ places }) => {
 								initialRegion={{
 									longitudeDelta: 0.01,
 									latitudeDelta: 0.01,
-									...item.location,
+									latitude: item.lat,
+									longitude: item.lng,
 								}}
 								style={styles.map}
 							>
 								<Marker
 									coordinate={{
-										...item.location,
+										latitude: item.lat,
+										longitude: item.lng,
 									}}
 								/>
 							</MapView>

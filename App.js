@@ -15,7 +15,6 @@ export default function App() {
 		async function prepare() {
 			try {
 				await init()
-				await new Promise(resolve => setTimeout(resolve, 2000))
 			} catch (e) {
 				console.warn(e)
 			} finally {

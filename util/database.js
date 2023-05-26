@@ -5,13 +5,18 @@ const database = SQLite.openDatabase('places.db')
 export function init() {
 	const promise = new Promise((resolve, reject) => {
 		database.transaction(tx => {
+			// tx.executeSql('DROP TABLE IF EXISTS favouritePlaces')
 			tx.executeSql(
-				`CREATE TABLE IF NOT EXISTS places(
+				`CREATE TABLE IF NOT EXISTS favouritePlaces(
 				id INTEGER PRIMARY KEY NOT NULL,
 				title TEXT NOT NULL,
 				imageUri TEXT NOT NULL,
-				location TEXT NOT NULL,
-				address TEXT NOT NULL
+				country TEXT NOT NULL,
+				city TEXT NOT NULL,
+				subregion TEXT NOT NULL,
+				postcode TEXT NOT NULL,
+				lat REAL NOT NULL,
+				lng REAL NOT NULL
 			)`,
 				[],
 				() => {
@@ -30,10 +35,18 @@ export function insertPlace(place) {
 	const promise = new Promise((resolve, reject) => {
 		database.transaction(tx => {
 			tx.executeSql(
-				`INSERT INTO places(title, imageUri, location, address) VALUES(?, ?, ?, ?)`,
-				[place.title, place.imageUri, place.location, place.address],
+				`INSERT INTO favouritePlaces(title, imageUri, lat, lng, country, subregion, postcode, city) VALUES(?, ?, ?, ?, ?, ?, ?, ?)`,
+				[
+					place.title,
+					place.imageUri,
+					place.location.latitude,
+					place.location.longitude,
+					place.address.country,
+					place.address.subregion,
+					place.address.postalCode,
+					place.address.city,
+				],
 				(_, result) => {
-					console.log(result)
 					resolve(result)
 				},
 				(_, err) => {
@@ -49,11 +62,10 @@ export function fetchPlaces() {
 	const promise = new Promise((resolve, reject) => {
 		database.transaction(tx => {
 			tx.executeSql(
-				`SELECT * FROM places`,
+				`SELECT * FROM favouritePlaces`,
 				[],
 				(_, result) => {
-					console.log(result)
-					resolve(result)
+					resolve(result.rows._array)
 				},
 				(_, err) => {
 					console.error(err)

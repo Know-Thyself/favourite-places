@@ -19,8 +19,8 @@ const PlaceForm = ({ onFormSubmit }) => {
 	const [address, setAddress] = useState({})
 
 	const formSubmitHandler = () => {
-		const placeToSave = new Place(title, image, location, address)
-		onFormSubmit(placeToSave)
+		const place = new Place(title, image, location, address)
+		onFormSubmit(place)
 	}
 
 	return (

@@ -4,6 +4,14 @@ export class Place {
 		this.imageUri = imageUri
 		this.location = location
 		this.address = address
-		this.id = new Date().toString() + Math.floor(Math.random() * 100).toString()
+	}
+}
+
+const addressConsttructor = address => {
+	return {
+		city: address.city,
+		country: address.country,
+		subRegion: address.subregion,
+		postcode: address.postalcode,
 	}
 }
