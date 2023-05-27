@@ -83,8 +83,7 @@ const styles = StyleSheet.create({
 		paddingTop: 16,
 	},
 	pressed: {
-		backgroundColor: Colors.headerTintColor,
-		borderRadius: 8,
+		opacity: 0.7,
 	},
 	imageAndTextWrapper: {
 		flexDirection: 'row',

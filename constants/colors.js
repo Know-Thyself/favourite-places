@@ -6,5 +6,5 @@ export const Colors = {
 	headerTintColor: 'rgb(246, 217, 167)',
 	primary700: '#79A5F1',
 	contentBg: '#4B423B',
-	grayish: '#414A4C',
+	blueishGray: '#737CA1',
 }

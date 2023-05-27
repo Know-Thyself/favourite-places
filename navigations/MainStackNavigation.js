@@ -39,7 +39,7 @@ const MainStackNavigation = () => {
 			<Stack.Screen
 				name='Details'
 				component={PlaceDetailsScreen}
-				options={{ title: 'Details' }}
+				options={{ title: 'Loading place...' }}
 			/>
 		</Stack.Navigator>
 	)

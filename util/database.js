@@ -84,7 +84,7 @@ export function getPlaceById(id) {
 				`SELECT * FROM favouritePlaces WHERE id=?`,
 				[id],
 				(_, result) => {
-					resolve(result.rows._array)
+					resolve(result.rows._array[0])
 				},
 				(_, err) => {
 					console.error(err)

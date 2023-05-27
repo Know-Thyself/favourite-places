@@ -11,7 +11,7 @@ import MapView, { Marker } from 'react-native-maps'
 import { getPlaceById } from '../util/database'
 import { Colors } from '../constants/colors'
 
-const PlaceDetailsScreen = ({ route }) => {
+const PlaceDetailsScreen = ({ route, navigation }) => {
 	const selectedPlaceId = route.params.id
 	const [place, setPlace] = useState({})
 	const [showMap, setShowMap] = useState(false)
@@ -19,11 +19,14 @@ const PlaceDetailsScreen = ({ route }) => {
 	useEffect(() => {
 		const loadPlaceData = async () => {
 			const selectedPlace = await getPlaceById(selectedPlaceId)
-			setPlace(selectedPlace[0])
+			setPlace(selectedPlace)
+			navigation.setOptions({
+				title: selectedPlace.title,
+			})
 		}
 		loadPlaceData()
 	}, [selectedPlaceId])
-	
+
 	return (
 		<View style={styles.parentContainer}>
 			<ScrollView>
@@ -74,16 +77,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: Colors.secondaryScreenBg,
 	},
-	fallbackContainer: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: Colors.screenBg,
-	},
-	fallbackText: {
-		fontSize: 16,
-		color: '#C4C2B5',
-	},
 	itemWrapper: {
 		flex: 1,
 		width: '100%',
@@ -125,7 +118,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 		alignSelf: 'center',
-		backgroundColor: Colors.grayish,
+		backgroundColor: Colors.blueishGray,
 		padding: 8,
 		marginVertical: 32,
 		borderRadius: 4,
